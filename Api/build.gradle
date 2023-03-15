@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'hongik.hmut'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation project(':Domain')
+    implementation project(':Core')
+}
+
+test {
+    useJUnitPlatform()
+}
