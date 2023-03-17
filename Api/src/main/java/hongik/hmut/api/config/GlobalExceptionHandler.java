@@ -3,6 +3,8 @@ package hongik.hmut.api.config;
 
 import hongik.hmut.core.dto.ErrorDetail;
 import hongik.hmut.core.dto.ErrorResponse;
+import hongik.hmut.core.exception.BaseErrorCode;
+import hongik.hmut.core.exception.BaseException;
 import hongik.hmut.core.exception.GlobalException;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +42,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ErrorResponse> exceptionHandle(Exception e, HttpServletRequest req)
-            throws IOException {
+    protected ResponseEntity<ErrorResponse> internalServerExceptionHandle(
+            Exception e, HttpServletRequest req) throws IOException {
         //        final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper)
         // req;
         String url =
@@ -55,6 +57,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         //        slackInternalErrorSender.execute(cachingRequest, e, userId);
         return ResponseEntity.status(HttpStatus.valueOf(internalServerError.getStatusCode()))
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(BaseException.class)
+    protected ResponseEntity<ErrorResponse> baseExceptionHandle(
+            BaseException e, HttpServletRequest req) {
+        BaseErrorCode code = e.getErrorCode();
+        ErrorDetail errorDetail = code.getErrorDetail();
+        ErrorResponse errorResponse = new ErrorResponse(errorDetail);
+        return ResponseEntity.status(HttpStatus.valueOf(errorDetail.getStatusCode()))
                 .body(errorResponse);
     }
 }

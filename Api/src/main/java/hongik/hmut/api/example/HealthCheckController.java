@@ -1,7 +1,8 @@
 package hongik.hmut.api.example;
 
 
-import hongik.hmut.core.exception.InternalServerException;
+import hongik.hmut.api.example.dto.HealthCheckResponse;
+import hongik.hmut.core.exception.ExampleException;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.Objects;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,10 @@ public class HealthCheckController {
 
     @Operation(summary = "테스트용 컨트롤러입니다.")
     @GetMapping
-    public String healthCheck(@RequestParam String check) {
+    public HealthCheckResponse healthCheck(@RequestParam(required = false) String check) {
         if (Objects.equals(check, "error")) {
-            throw InternalServerException.EXCEPTION;
+            throw ExampleException.EXCEPTION;
         }
-        return "Health!";
+        return HealthCheckResponse.from("health");
     }
 }

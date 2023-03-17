@@ -58,6 +58,8 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers("/v1/auth/token/refresh")
                 .permitAll()
+                .mvcMatchers("**/health")
+                .permitAll()
                 .anyRequest()
                 .hasRole("USER");
         http.apply(filterConfig);
