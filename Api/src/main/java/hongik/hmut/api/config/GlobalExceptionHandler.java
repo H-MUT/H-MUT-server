@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestControllerAdvice
@@ -43,7 +42,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> exceptionHandle(Exception e, HttpServletRequest req)
             throws IOException {
-        final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper) req;
+        //        final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper)
+        // req;
         String url =
                 UriComponentsBuilder.fromHttpRequest(new ServletServerHttpRequest(req))
                         .build()
