@@ -2,3 +2,15 @@ spring:
   profiles:
     include:
       - domain
+      - core
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+springdoc:
+  api-docs:
+    path: /api-docs
+
+
+swagger:
+  user: ${SWAGGER_USER:user}
+  password: ${SWAGGER_PASSWORD:password}
