@@ -1,6 +1,6 @@
 name: prod-ci
 on:
-  pull_request:
+  push:
     branch: 'main'
 
 jobs:
