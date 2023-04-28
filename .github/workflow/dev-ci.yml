@@ -1,0 +1,87 @@
+name: dev-ci
+on:
+  push:
+    branch: 'dev'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: SetUp JDK 17
+          uses: actions/setup-java@v2
+          with:
+            java-version: "17"
+            distribution: 'adopt'
+
+
+      - name: Gradle Caching
+          uses: actions/cache@v3
+          with:
+            path: |
+              ~/.gradle/caches
+              ~/.gradle/wrapper
+            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+            restore-keys: |
+              ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: spotless check
+        run: ./gradlew spotlessCheck
+
+      - name: Docker meta
+          id: docker_meta
+          uses: crazy-max/ghaction-docker-meta@v1
+          with:
+            images: sanbonai06/hmut-server-dev
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker build & push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+
+      - name: create remote directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DEV }}
+          username: ubuntu
+          key: ${{ secrets.KEY_DEV }}
+          script: mkdir -p ~/srv/ubuntu/bankids_dev
+
+      - name: copy source via ssh key
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          remote_path: ~/srv/ubuntu/
+          remote_host: ${{ secrets.HOST_DEV }}
+          remote_user: ubuntu
+          remote_key: ${{ secrets.KEY_DEV }}
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DEV }}
+          username: ubuntu
+          key: ${{ secrets.KEY_DEV }}
+          script: |
+            sh ~/srv/ubuntu/config/scripts/docker-init.sh
+            sudo docker-compose -f ~/srv/ubuntu/docker-compose.yml pull
+            sudo docker-compose -f ~/srv/ubuntu/docker-compose.prod.yml --env-file ~/srv/ubuntu/.env-dev up --build -d
+            sudo docker system prune --all -f

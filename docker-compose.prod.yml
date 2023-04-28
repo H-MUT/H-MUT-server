@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  backend:
+    image: sanbonai06/hmut-server-prod:main
+    container_name: backend
+    env_file:
+      - .env
+    network_mode: "host"
+    environment:
+      - TZ=Asia/Seoul
+    expose:
+      - "8080"
+
+  nginx:
+    depends_on:
+      - backend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./config/nginx
+    ports:
+      - "80:80"

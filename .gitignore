@@ -37,3 +37,6 @@ out/
 .vscode/
 .env
 .env.*
+
+
+Domain/src/main/generated/**/*.java
