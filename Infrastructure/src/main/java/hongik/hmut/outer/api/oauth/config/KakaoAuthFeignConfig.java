@@ -1,0 +1,23 @@
+package hongik.hmut.outer.api.oauth.config;
+
+import feign.Logger;
+import feign.Logger.Level;
+import feign.RequestInterceptor;
+import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
+public class KakaoAuthFeignConfig {
+
+    @Bean
+    @ConditionalOnMissingBean(value = ErrorDecoder.class)
+    public KakaoAuthErrorDecoder commonFeignErrorDecoder() {
+        return new KakaoAuthErrorDecoder();
+    }
+
+    @Bean
+    Encoder formEncoder() {
+        return new feign.form.FormEncoder();
+    }
+}

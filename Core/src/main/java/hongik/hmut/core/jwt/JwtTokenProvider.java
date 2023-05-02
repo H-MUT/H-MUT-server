@@ -6,6 +6,7 @@ import hongik.hmut.core.dto.AccessTokenDetail;
 import hongik.hmut.core.exception.ExpiredRefreshTokenException;
 import hongik.hmut.core.exception.ExpiredTokenException;
 import hongik.hmut.core.exception.InvalidTokenException;
+import hongik.hmut.core.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
