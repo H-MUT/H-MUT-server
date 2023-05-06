@@ -60,4 +60,6 @@ public class KakaoInfoResponse {
         return kakaoAccount.getName();
     }
 
+    public String getProfileUrl() { return kakaoAccount.getProfileImageUrl(); };
+
 }
