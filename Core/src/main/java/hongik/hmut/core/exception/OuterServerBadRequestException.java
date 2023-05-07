@@ -1,6 +1,6 @@
 package hongik.hmut.core.exception;
 
-public class OuterServerBadRequestException extends BaseException{
+public class OuterServerBadRequestException extends BaseException {
 
     public static final BaseException EXCEPTION = new OuterServerBadRequestException();
 

@@ -25,22 +25,15 @@ public class User extends AbstractTimeStamp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Embedded private Profile profile;
 
-    @Embedded
-    private Profile profile;
-
-    @Embedded
-    private OauthInfo oauthInfo;
-
+    @Embedded private OauthInfo oauthInfo;
 
     @Enumerated(EnumType.STRING)
     private AccountRole accountRole;
 
     @Builder
-    public User(
-        Profile profile,
-        OauthInfo oauthInfo
-    ) {
+    public User(Profile profile, OauthInfo oauthInfo) {
         this.profile = profile;
         this.oauthInfo = oauthInfo;
         this.accountRole = AccountRole.USER;

@@ -1,5 +1,6 @@
 package hongik.hmut.outer.api.oauth.dto;
 
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
@@ -20,7 +21,6 @@ public class KakaoInfoResponse {
     public static class Properties {
         private String nickName;
     }
-
 
     @Getter
     @NoArgsConstructor
@@ -60,6 +60,8 @@ public class KakaoInfoResponse {
         return kakaoAccount.getName();
     }
 
-    public String getProfileUrl() { return kakaoAccount.getProfileImageUrl(); };
-
+    public String getProfileUrl() {
+        return kakaoAccount.getProfileImageUrl();
+    }
+    ;
 }

@@ -1,5 +1,6 @@
 package hongik.hmut.api.auth.model.response;
 
+
 import lombok.Builder;
 import lombok.Getter;
 

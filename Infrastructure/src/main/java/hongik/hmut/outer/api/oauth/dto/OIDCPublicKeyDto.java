@@ -1,5 +1,6 @@
 package hongik.hmut.outer.api.oauth.dto;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

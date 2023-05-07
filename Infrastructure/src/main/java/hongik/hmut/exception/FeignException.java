@@ -1,5 +1,6 @@
 package hongik.hmut.exception;
 
+
 import hongik.hmut.core.exception.BaseException;
 import hongik.hmut.core.exception.GlobalException;
 

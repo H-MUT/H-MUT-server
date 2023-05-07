@@ -1,5 +1,6 @@
 package hongik.hmut.api.auth.service.helper;
 
+
 import hongik.hmut.core.dto.OIDCDto;
 import hongik.hmut.core.jwt.JwtOIDCProvider;
 import hongik.hmut.outer.api.oauth.dto.OIDCPublicKeyDto;
@@ -18,16 +19,16 @@ public class OIDCHelper {
     }
 
     public OIDCDto getPayloadFromIdToken(
-        String token, String iss, String aud, OIDCResponse oidcResponse) {
+            String token, String iss, String aud, OIDCResponse oidcResponse) {
         String kid = getKidFromUnsignedIdToken(token, iss, aud);
 
         OIDCPublicKeyDto oidcPublicKeyDto =
-            oidcResponse.getOidcPublicKeyDtos().stream()
-                .filter(o -> o.getKid().equals(kid))
-                .findFirst()
-                .orElseThrow();
+                oidcResponse.getOidcPublicKeyDtos().stream()
+                        .filter(o -> o.getKid().equals(kid))
+                        .findFirst()
+                        .orElseThrow();
 
         return jwtOIDCProvider.getOIDCTokenBody(
-            token, oidcPublicKeyDto.getN(), oidcPublicKeyDto.getE());
+                token, oidcPublicKeyDto.getN(), oidcPublicKeyDto.getE());
     }
 }

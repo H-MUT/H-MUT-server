@@ -1,5 +1,6 @@
 package hongik.hmut.config;
 
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -8,7 +9,6 @@ import feign.Logger.Level;
 import feign.codec.Decoder;
 import feign.jackson.JacksonDecoder;
 import hongik.hmut.outer.BaseFeignClientPackage;
-
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

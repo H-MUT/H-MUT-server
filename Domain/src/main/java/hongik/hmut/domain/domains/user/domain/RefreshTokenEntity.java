@@ -1,5 +1,6 @@
 package hongik.hmut.domain.domains.user.domain;
 
+
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +12,9 @@ import org.springframework.data.redis.core.index.Indexed;
 @RedisHash(value = "refreshToken")
 public class RefreshTokenEntity {
 
-    @Id
-    private Long id;
+    @Id private Long id;
 
-    @Indexed
-    private String refreshToken;
+    @Indexed private String refreshToken;
 
     @TimeToLive // TTL
     private Long ttl;

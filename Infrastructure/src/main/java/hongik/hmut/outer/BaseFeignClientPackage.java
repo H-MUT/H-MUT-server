@@ -1,5 +1,3 @@
 package hongik.hmut.outer;
 
-public interface BaseFeignClientPackage {
-
-}
+public interface BaseFeignClientPackage {}

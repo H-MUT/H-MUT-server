@@ -1,6 +1,6 @@
 package hongik.hmut.domain.domains.user.domain;
 
-import java.time.LocalDateTime;
+
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

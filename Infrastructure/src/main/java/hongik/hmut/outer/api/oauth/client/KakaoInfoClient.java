@@ -1,26 +1,25 @@
 package hongik.hmut.outer.api.oauth.client;
 
+
 import hongik.hmut.outer.api.oauth.config.KakaoInfoClientConfig;
 import hongik.hmut.outer.api.oauth.dto.KakaoInfoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(
-    name = "KakaoInfoClient",
-    url = "https://kapi.kakao.com",
-    configuration = KakaoInfoClientConfig.class
-)
+        name = "KakaoInfoClient",
+        url = "https://kapi.kakao.com",
+        configuration = KakaoInfoClientConfig.class)
 public interface KakaoInfoClient {
 
     @GetMapping("/v2/user/me")
     KakaoInfoResponse kakaoUserInfo(@RequestHeader("Authorization") String accessToken);
 
-    //Todo: 회원 탈퇴 로직 때 구현
-//    @PostMapping(path = "/v1/user/unlink", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    void unlinkUser(
-//        @RequestHeader("Authorization") String adminKey, UnlinkKaKaoTarget unlinkKaKaoTarget);
+    // Todo: 회원 탈퇴 로직 때 구현
+    //    @PostMapping(path = "/v1/user/unlink", consumes =
+    // MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    //    void unlinkUser(
+    //        @RequestHeader("Authorization") String adminKey, UnlinkKaKaoTarget unlinkKaKaoTarget);
 
 }

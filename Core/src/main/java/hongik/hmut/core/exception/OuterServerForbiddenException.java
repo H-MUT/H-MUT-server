@@ -1,6 +1,6 @@
 package hongik.hmut.core.exception;
 
-public class OuterServerForbiddenException extends BaseException{
+public class OuterServerForbiddenException extends BaseException {
 
     public static final BaseException EXCEPTION = new OuterServerForbiddenException();
 

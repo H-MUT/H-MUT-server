@@ -1,5 +1,6 @@
 package hongik.hmut.domain.domains.user.validator;
 
+
 import hongik.hmut.core.annotation.Validator;
 import hongik.hmut.domain.domains.user.adaptor.UserAdaptor;
 import hongik.hmut.domain.domains.user.domain.OauthInfo;
@@ -17,5 +18,4 @@ public class UserValidator {
             throw AlreadyExistUserException.EXCEPTION;
         }
     }
-
 }

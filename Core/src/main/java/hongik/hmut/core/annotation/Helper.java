@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface Adaptor {
+public @interface Helper {
     @AliasFor(annotation = Component.class)
     String value() default "";
 }

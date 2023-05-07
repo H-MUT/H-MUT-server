@@ -1,8 +1,6 @@
 package hongik.hmut.outer.api.oauth.config;
 
-import feign.Logger;
-import feign.Logger.Level;
-import feign.RequestInterceptor;
+
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

@@ -7,8 +7,9 @@ auth:
 
 oauth2:
   kakao:
-    infoUrl: https://kapi.kakao.com
-    baseUrl: https://kauth.kakao.com
-    clientId: 5d38e6dc1f62b10c9r3dc2e34fe6d24e62
-    redirectUri: http://localhost/api/v1/login/kakao/oauth2
-    secretKey: I1nEw554k2oFM1n32P126Yro7NrRVU2G
+    base-url: ${KAKAO_BASE_URL}
+    client-id: ${KAKAO_CLIENT}
+    client-secret: ${KAKAO_SECRET}
+    redirect-url: ${KAKAO_REDIRECT}
+    app-id: ${KAKAO_APP_ID}
+    admin-key: ${KAKAO_ADMIN_KEY}

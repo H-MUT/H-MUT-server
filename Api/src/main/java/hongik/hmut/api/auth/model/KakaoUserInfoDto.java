@@ -1,5 +1,6 @@
 package hongik.hmut.api.auth.model;
 
+
 import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.OauthProvider;
 import hongik.hmut.domain.domains.user.domain.Profile;
@@ -21,11 +22,11 @@ public class KakaoUserInfoDto {
 
     public Profile toProfile() {
         return Profile.builder()
-            .thumbNail(this.profileImage)
-            .phoneNum(phoneNum)
-            .userName(userName)
-            .email(email)
-            .build();
+                .thumbNail(this.profileImage)
+                .phoneNum(phoneNum)
+                .userName(userName)
+                .email(email)
+                .build();
     }
 
     public OauthInfo toOauthInfo() {

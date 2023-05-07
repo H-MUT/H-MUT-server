@@ -1,5 +1,6 @@
 package hongik.hmut.domain.domains.user.adaptor;
 
+
 import hongik.hmut.core.annotation.Adaptor;
 import hongik.hmut.domain.domains.user.domain.RefreshTokenEntity;
 import hongik.hmut.domain.domains.user.repository.RefreshTokenRepository;

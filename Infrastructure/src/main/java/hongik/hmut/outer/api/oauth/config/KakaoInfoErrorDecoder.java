@@ -1,5 +1,6 @@
 package hongik.hmut.outer.api.oauth.config;
 
+
 import feign.FeignException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -8,7 +9,7 @@ import hongik.hmut.core.exception.OuterServerExpiredTokenException;
 import hongik.hmut.core.exception.OuterServerForbiddenException;
 import hongik.hmut.core.exception.OuterServerUnauthorizedException;
 
-public class KakaoInfoErrorDecode implements ErrorDecoder {
+public class KakaoInfoErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {

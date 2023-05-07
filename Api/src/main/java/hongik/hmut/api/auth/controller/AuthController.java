@@ -1,5 +1,6 @@
 package hongik.hmut.api.auth.controller;
 
+
 import hongik.hmut.api.auth.model.request.RegisterRequest;
 import hongik.hmut.api.auth.model.response.AuthResponse;
 import hongik.hmut.api.auth.model.response.OauthLoginLinkResponse;
@@ -29,16 +30,17 @@ public class AuthController {
 
     @Operation(summary = "kakao oauth 링크발급 (백엔드용)", description = "kakao 링크를 받아볼수 있습니다.")
     @Tag(name = "1-2. [카카오]")
-    @GetMapping("/oauth/kakao/dev")
+    @GetMapping("/oauth/kakao/link/dev")
     public OauthLoginLinkResponse getKakaoLoginLinkForDev() {
         return signUpUseCase.getKaKaoOauthLinkTest();
     }
 
     @Operation(summary = "kakao oauth 링크발급 (프론트용)", description = "kakao 링크를 받아볼수 있습니다.")
     @Tag(name = "1-2. [카카오]")
-    @GetMapping("/oauth/kakao")
-    public OauthLoginLinkResponse getKakaoLoginLink(@RequestHeader(required = false) String referer,
-        @RequestHeader(required = false) String host) {
+    @GetMapping("/oauth/kakao/link")
+    public OauthLoginLinkResponse getKakaoLoginLink(
+            @RequestHeader(required = false) String referer,
+            @RequestHeader(required = false) String host) {
 
         // dev, production 환경에서
         if (referer.contains(host)) {
@@ -52,9 +54,10 @@ public class AuthController {
     @Operation(summary = "kakao code를 통해 token 발급")
     @Tag(name = "1-2. [카카오]")
     @GetMapping("/oauth/kakao")
-    public OauthTokenResponse getKakaoCredentialInfo(@RequestParam String code,
-        @RequestHeader(required = false) String referer,
-        @RequestHeader(required = false) String host) {
+    public OauthTokenResponse getKakaoCredentialInfo(
+            @RequestParam String code,
+            @RequestHeader(required = false) String referer,
+            @RequestHeader(required = false) String host) {
 
         // dev, production 환경에서
         if (referer.contains(host)) {
@@ -68,8 +71,9 @@ public class AuthController {
     @Operation(summary = "발급받은 idToken을 통해 회원가입")
     @Tag(name = "1-2. [카카오]")
     @PostMapping("/oauth/kakao/register")
-    public AuthResponse registerUser(@RequestParam("id_token") String token,
-        @Valid @RequestBody RegisterRequest registerRequest) {
+    public AuthResponse registerUser(
+            @RequestParam("id_token") String token,
+            @Valid @RequestBody RegisterRequest registerRequest) {
         return signUpUseCase.registerUserByOCIDToken(token, registerRequest);
     }
 }

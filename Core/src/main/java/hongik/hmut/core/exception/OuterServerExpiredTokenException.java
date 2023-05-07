@@ -1,6 +1,6 @@
 package hongik.hmut.core.exception;
 
-public class OuterServerExpiredTokenException extends BaseException{
+public class OuterServerExpiredTokenException extends BaseException {
 
     public static final BaseException EXCEPTION = new OuterServerExpiredTokenException();
 

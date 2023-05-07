@@ -1,5 +1,6 @@
 package hongik.hmut.outer.api.oauth.config;
 
+
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import hongik.hmut.core.dto.ErrorDetail;
@@ -15,15 +16,19 @@ public class KakaoAuthErrorDecoder implements ErrorDecoder {
 
         try {
             KakaoAuthErrorCode kakaoKauthErrorCode =
-                KakaoAuthErrorCode.valueOf(body.getErrorCode());
+                    KakaoAuthErrorCode.valueOf(body.getErrorCode());
             ErrorDetail errorDetail = kakaoKauthErrorCode.getErrorDetail();
-            throw new OuterServerException(errorDetail.getStatusCode(), errorDetail.getErrorCode(),
-                errorDetail.getReason());
+            throw new OuterServerException(
+                    errorDetail.getStatusCode(),
+                    errorDetail.getErrorCode(),
+                    errorDetail.getReason());
         } catch (IllegalArgumentException e) {
             KakaoAuthErrorCode koeInvalidRequest = KakaoAuthErrorCode.KOE_INVALID_REQUEST;
             ErrorDetail errorDetail = koeInvalidRequest.getErrorDetail();
             throw new OuterServerException(
-                errorDetail.getStatusCode(), errorDetail.getErrorCode(), errorDetail.getReason());
+                    errorDetail.getStatusCode(),
+                    errorDetail.getErrorCode(),
+                    errorDetail.getReason());
         }
     }
 }

@@ -10,8 +10,8 @@ public class KakaoInfoClientConfig {
 
     @Bean
     @ConditionalOnMissingBean(value = ErrorDecoder.class)
-    public KakaoInfoErrorDecode commonFeignErrorDecoder() {
-        return new KakaoInfoErrorDecode();
+    public KakaoInfoErrorDecoder commonFeignErrorDecoder() {
+        return new KakaoInfoErrorDecoder();
     }
 
     @Bean

@@ -1,5 +1,6 @@
 package hongik.hmut.core.jwt;
 
+
 import hongik.hmut.core.dto.OIDCDto;
 import hongik.hmut.core.exception.ExpiredTokenException;
 import hongik.hmut.core.exception.InvalidTokenException;
@@ -33,10 +34,10 @@ public class JwtOIDCProvider {
     private Jwt<Header, Claims> getUnsignedTokenClaims(String token, String iss, String aud) {
         try {
             return Jwts.parserBuilder()
-                .requireAudience(aud)
-                .requireIssuer(iss)
-                .build()
-                .parseClaimsJwt(getParseUnsignedToken(token));
+                    .requireAudience(aud)
+                    .requireIssuer(iss)
+                    .build()
+                    .parseClaimsJwt(getParseUnsignedToken(token));
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
         } catch (Exception e) {
@@ -54,9 +55,9 @@ public class JwtOIDCProvider {
     public Jws<Claims> getOIDCTokenJws(String token, String modulus, String exponent) {
         try {
             return Jwts.parserBuilder()
-                .setSigningKey(getRSAPublicKey(modulus, exponent))
-                .build()
-                .parseClaimsJws(token);
+                    .setSigningKey(getRSAPublicKey(modulus, exponent))
+                    .build()
+                    .parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
         } catch (Exception e) {
@@ -67,14 +68,14 @@ public class JwtOIDCProvider {
     public OIDCDto getOIDCTokenBody(String token, String modulus, String exponent) {
         Claims body = getOIDCTokenJws(token, modulus, exponent).getBody();
         return new OIDCDto(
-            body.getIssuer(),
-            body.getAudience(),
-            body.getSubject(),
-            body.get("email", String.class));
+                body.getIssuer(),
+                body.getAudience(),
+                body.getSubject(),
+                body.get("email", String.class));
     }
 
     private Key getRSAPublicKey(String modulus, String exponent)
-        throws NoSuchAlgorithmException, InvalidKeySpecException {
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         byte[] decodeN = Base64.getUrlDecoder().decode(modulus);
         byte[] decodeE = Base64.getUrlDecoder().decode(exponent);
@@ -84,5 +85,4 @@ public class JwtOIDCProvider {
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(n, e);
         return keyFactory.generatePublic(keySpec);
     }
-
 }
