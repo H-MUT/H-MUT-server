@@ -1,6 +1,7 @@
 package hongik.hmut.api.auth.service;
 
 
+import hongik.hmut.api.auth.model.KakaoUserInfoDto;
 import hongik.hmut.api.auth.model.request.RegisterRequest;
 import hongik.hmut.api.auth.model.response.AuthResponse;
 import hongik.hmut.api.auth.model.response.OauthLoginLinkResponse;
@@ -36,11 +37,23 @@ public class SignUpUseCase {
         return new OauthLoginLinkResponse(kakaoOauthHelper.getKaKaoOauthLink(referer));
     }
 
-    public AuthResponse registerUserByOCIDToken(
+    public AuthResponse registerUserByOICDToken(
             String idToken, RegisterRequest registerUserRequest) {
 
         OauthInfo oauthInfo = kakaoOauthHelper.getOauthInfoByIdToken(idToken);
         User user = userDomainService.registerUser(registerUserRequest.toProfile(), oauthInfo);
+
+        return tokenGenerateHelper.execute(user);
+    }
+
+    public AuthResponse registerUserByKakaoCode(String code) {
+        String accessToken = kakaoOauthHelper.getOauthTokenTest(code).getAccessToken();
+
+        System.out.println("accessToken = " + accessToken);
+        KakaoUserInfoDto userInfo = kakaoOauthHelper.getUserInfo(accessToken);
+
+        System.out.println("userInfo = " + userInfo);
+        User user = userDomainService.registerUser(userInfo.toProfile(), userInfo.toOauthInfo());
 
         return tokenGenerateHelper.execute(user);
     }

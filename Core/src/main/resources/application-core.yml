@@ -5,6 +5,7 @@ auth:
     refresh-exp: ${JWT_REFRESH_EXP:3600}
     issuer: ${JWT_ISSUER:test}
 
+
 oauth2:
   kakao:
     base-url: ${KAKAO_BASE_URL}

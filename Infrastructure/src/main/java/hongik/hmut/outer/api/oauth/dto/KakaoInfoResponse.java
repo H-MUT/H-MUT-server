@@ -19,7 +19,7 @@ public class KakaoInfoResponse {
     @NoArgsConstructor
     @JsonNaming(SnakeCaseStrategy.class)
     public static class Properties {
-        private String nickName;
+        private String nickname;
     }
 
     @Getter
@@ -57,7 +57,7 @@ public class KakaoInfoResponse {
     }
 
     public String getName() {
-        return kakaoAccount.getName();
+        return kakaoAccount.getName() != null ? kakaoAccount.getName() : properties.getNickname();
     }
 
     public String getProfileUrl() {

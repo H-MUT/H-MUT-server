@@ -38,18 +38,23 @@ public class KakaoOauthHelper {
     }
 
     public String getKaKaoOauthLink(String referer) {
+        System.out.println("referer = " + referer);
         return oauthProperties.getKakaoBaseUrl()
                 + String.format(
                         KAKAO_OAUTH_QUERY_STRING,
                         oauthProperties.getKakaoClientId(),
-                        referer + "/kakao/callback");
+                        referer + "kakao/callback");
     }
 
     public KakaoTokenResponse getOauthToken(String code, String referer) {
 
+        System.out.println("oauthProperties = " + oauthProperties.getKakaoClientId());
+        System.out.println("oauthProperties = " + oauthProperties.getKakaoClientSecret());
+
+
         return kakaoOauthClient.kakaoAuth(
                 oauthProperties.getKakaoClientId(),
-                referer + "/kakao/callback",
+                referer + "kakao/callback",
                 code,
                 oauthProperties.getKakaoClientSecret());
     }
@@ -64,6 +69,7 @@ public class KakaoOauthHelper {
     }
 
     public KakaoUserInfoDto getUserInfo(String oauthAccessToken) {
+        System.out.println("oauthAccessToken = " + oauthAccessToken);
         KakaoInfoResponse response = kakaoInfoClient.kakaoUserInfo(BEARER + oauthAccessToken);
 
         return KakaoUserInfoDto.builder()

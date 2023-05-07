@@ -74,6 +74,15 @@ public class AuthController {
     public AuthResponse registerUser(
             @RequestParam("id_token") String token,
             @Valid @RequestBody RegisterRequest registerRequest) {
-        return signUpUseCase.registerUserByOCIDToken(token, registerRequest);
+        return signUpUseCase.registerUserByOICDToken(token, registerRequest);
+    }
+
+    @Operation(summary = "개발용 회원가입")
+    @Tag(name = "1-2. [카카오]")
+    @GetMapping("/oauth/kakao/develop")
+    public AuthResponse registerUserForTest(
+        @RequestParam String code
+    ) {
+        return signUpUseCase.registerUserByKakaoCode(code);
     }
 }
