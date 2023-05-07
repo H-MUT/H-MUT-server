@@ -2,6 +2,7 @@ package hongik.hmut.domain.domains.user.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,12 +26,23 @@ public class User extends AbstractTimeStamp {
     private Long id;
 
 
+    @Embedded
+    private Profile profile;
 
+    @Embedded
+    private OauthInfo oauthInfo;
 
-    private String userName;
-
-    private String phoneNum;
 
     @Enumerated(EnumType.STRING)
     private AccountRole accountRole;
+
+    @Builder
+    public User(
+        Profile profile,
+        OauthInfo oauthInfo
+    ) {
+        this.profile = profile;
+        this.oauthInfo = oauthInfo;
+        this.accountRole = AccountRole.USER;
+    }
 }

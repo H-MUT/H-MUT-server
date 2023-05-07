@@ -1,14 +1,18 @@
 package hongik.hmut.api.auth.service;
 
 import hongik.hmut.api.auth.model.KakaoUserInfoDto;
+import hongik.hmut.api.auth.model.request.RegisterRequest;
 import hongik.hmut.api.auth.model.response.AuthResponse;
 import hongik.hmut.api.auth.model.response.OauthLoginLinkResponse;
+import hongik.hmut.api.auth.model.response.OauthTokenResponse;
 import hongik.hmut.api.auth.service.helper.KakaoOauthHelper;
 import hongik.hmut.api.auth.service.helper.OIDCHelper;
 import hongik.hmut.api.auth.service.helper.TokenGenerateHelper;
 import hongik.hmut.core.annotation.UseCase;
+import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.Profile;
 import hongik.hmut.domain.domains.user.domain.User;
+import hongik.hmut.domain.domains.user.service.UserDomainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +27,8 @@ public class SignUpUseCase {
 
     private final KakaoOauthHelper kakaoOauthHelper;
 
+    private final UserDomainService userDomainService;
+
     public OauthLoginLinkResponse getKaKaoOauthLinkTest() {
         return new OauthLoginLinkResponse(kakaoOauthHelper.getKaKaoOauthLinkTest());
     }
@@ -31,36 +37,14 @@ public class SignUpUseCase {
         return new OauthLoginLinkResponse(kakaoOauthHelper.getKaKaoOauthLink(referer));
     }
 
-    /**
-     * 개발용 회원가입 upsert 입니다.
-     *
-     * @param code
-     * @return
-     */
-    public AuthResponse upsertKakaoOauthUser(String code) {
-        String oauthAccessToken = kakaoOauthHelper.getOauthTokenTest(code).getAccessToken();
-        KakaoUserInfoDto oauthUserInfo = kakaoOauthHelper.getUserInfo(oauthAccessToken);
-
-        Profile profile = oauthUserInfo.toProfile();
-        User user = userDomainService.upsertUser(profile, oauthUserInfo.toOauthInfo());
-
-        return tokenGenerateHelper.execute(user);
-    }
-
-    public AvailableRegisterResponse checkAvailableRegister(String idToken) {
-        OauthInfo oauthInfo = kakaoOauthHelper.getOauthInfoByIdToken(idToken);
-        return new AvailableRegisterResponse(userDomainService.checkUserCanRegister(oauthInfo));
-    }
-
-    public TokenAndUserResponse registerUserByOCIDToken(
+    public AuthResponse registerUserByOCIDToken(
         String idToken, RegisterRequest registerUserRequest) {
 
         OauthInfo oauthInfo = kakaoOauthHelper.getOauthInfoByIdToken(idToken);
         User user =
             userDomainService.registerUser(
                 registerUserRequest.toProfile(),
-                oauthInfo,
-                registerUserRequest.getMarketingAgree());
+                oauthInfo);
 
         return tokenGenerateHelper.execute(user);
     }
