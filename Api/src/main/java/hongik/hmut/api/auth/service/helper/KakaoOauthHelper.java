@@ -8,11 +8,11 @@ import hongik.hmut.core.dto.OIDCDto;
 import hongik.hmut.core.properties.OauthProperties;
 import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.OauthProvider;
-import hongik.hmut.outer.api.oauth.client.KakaoInfoClient;
-import hongik.hmut.outer.api.oauth.client.KakaoOauthClient;
-import hongik.hmut.outer.api.oauth.dto.KakaoInfoResponse;
-import hongik.hmut.outer.api.oauth.dto.KakaoTokenResponse;
-import hongik.hmut.outer.api.oauth.dto.OIDCResponse;
+import hongik.hmut.infrastructure.outer.api.oauth.client.KakaoInfoClient;
+import hongik.hmut.infrastructure.outer.api.oauth.client.KakaoOauthClient;
+import hongik.hmut.infrastructure.outer.api.oauth.dto.KakaoInfoResponse;
+import hongik.hmut.infrastructure.outer.api.oauth.dto.KakaoTokenResponse;
+import hongik.hmut.infrastructure.outer.api.oauth.dto.OIDCResponse;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -51,7 +51,6 @@ public class KakaoOauthHelper {
         System.out.println("oauthProperties = " + oauthProperties.getKakaoClientId());
         System.out.println("oauthProperties = " + oauthProperties.getKakaoClientSecret());
 
-
         return kakaoOauthClient.kakaoAuth(
                 oauthProperties.getKakaoClientId(),
                 referer + "kakao/callback",
@@ -75,7 +74,6 @@ public class KakaoOauthHelper {
         return KakaoUserInfoDto.builder()
                 .oauthProvider(OauthProvider.KAKAO)
                 .userName(response.getName())
-                .phoneNum(response.getPhoneNum())
                 .profileImage(response.getProfileUrl())
                 .email(response.getEmail())
                 .oauthId(response.getId())

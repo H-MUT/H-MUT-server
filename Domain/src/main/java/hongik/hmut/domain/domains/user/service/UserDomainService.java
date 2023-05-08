@@ -6,6 +6,7 @@ import hongik.hmut.domain.domains.user.adaptor.UserAdaptor;
 import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.Profile;
 import hongik.hmut.domain.domains.user.domain.User;
+import hongik.hmut.domain.domains.user.repository.UserRepository;
 import hongik.hmut.domain.domains.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ public class UserDomainService {
 
     private final UserAdaptor userAdaptor;
     private final UserValidator userValidator;
+    private final UserRepository userRepository;
 
     @Transactional
     public User registerUser(Profile profile, OauthInfo oauthInfo) {
@@ -23,5 +25,18 @@ public class UserDomainService {
 
         User user = User.builder().profile(profile).oauthInfo(oauthInfo).build();
         return userAdaptor.save(user);
+    }
+
+    @Transactional
+    public User registerUserForTest(Profile profile, OauthInfo oauthInfo) {
+        return userRepository
+                .findByOauthInfo(oauthInfo)
+                .orElseGet(
+                        () ->
+                                userAdaptor.save(
+                                        User.builder()
+                                                .oauthInfo(oauthInfo)
+                                                .profile(profile)
+                                                .build()));
     }
 }

@@ -46,7 +46,7 @@ public class JwtTokenProvider {
                 .setIssuedAt(issuedAt)
                 .setSubject(id.toString())
                 .claim(TOKEN_TYPE, ACCESS_TOKEN)
-                .claim("role", "Role")
+                .claim("role", role)
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(encodedKey)
                 .compact();

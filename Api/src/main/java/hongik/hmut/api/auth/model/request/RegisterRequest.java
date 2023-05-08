@@ -16,11 +16,6 @@ public class RegisterRequest {
     @NotEmpty private String name;
 
     public Profile toProfile() {
-        return Profile.builder()
-                .thumbNail(this.profileImage)
-                .phoneNum(phoneNumber)
-                .userName(name)
-                .email(email)
-                .build();
+        return Profile.builder().thumbNail(this.profileImage).userName(name).email(email).build();
     }
 }

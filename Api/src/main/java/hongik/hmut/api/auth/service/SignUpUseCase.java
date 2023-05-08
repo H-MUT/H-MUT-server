@@ -48,12 +48,10 @@ public class SignUpUseCase {
 
     public AuthResponse registerUserByKakaoCode(String code) {
         String accessToken = kakaoOauthHelper.getOauthTokenTest(code).getAccessToken();
-
-        System.out.println("accessToken = " + accessToken);
         KakaoUserInfoDto userInfo = kakaoOauthHelper.getUserInfo(accessToken);
 
-        System.out.println("userInfo = " + userInfo);
-        User user = userDomainService.registerUser(userInfo.toProfile(), userInfo.toOauthInfo());
+        User user =
+                userDomainService.registerUserForTest(userInfo.toProfile(), userInfo.toOauthInfo());
 
         return tokenGenerateHelper.execute(user);
     }

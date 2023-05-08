@@ -23,7 +23,6 @@ public class KakaoUserInfoDto {
     public Profile toProfile() {
         return Profile.builder()
                 .thumbNail(this.profileImage)
-                .phoneNum(phoneNum)
                 .userName(userName)
                 .email(email)
                 .build();

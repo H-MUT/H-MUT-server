@@ -1,8 +1,19 @@
 package hongik.hmut.api.config;
 
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityScheme.In;
+import io.swagger.v3.oas.models.security.SecurityScheme.Type;
+import io.swagger.v3.oas.models.servers.Server;
+import java.util.List;
+import javax.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 // import springfox.documentation.builders.ApiInfoBuilder;
 // import springfox.documentation.builders.PathSelectors;
@@ -17,29 +28,34 @@ public class SwaggerConfig {
 
     private final ApplicationContext applicationContext;
     //
-    //    @Bean
-    //    public OpenAPI openAPI(ServletContext servletContext) {
-    //        String contextPath = servletContext.getContextPath();
-    //        Server url = new Server().url(contextPath);
-    //        return new OpenAPI().servers(List.of(url)).components(authSetting)
-    //    }
+    @Bean
+    public OpenAPI openAPI(ServletContext servletContext) {
+        String contextPath = servletContext.getContextPath();
+        Server server = new Server().url(contextPath);
+        return new OpenAPI().servers(List.of(server)).components(authSetting()).info(swaggerInfo());
+    }
 
-    //    @Bean
-    //    public Docket api() {
-    //        return new Docket(DocumentationType.OAS_30)
-    //                .useDefaultResponseMessages(false)
-    //                .select()
-    //                .apis(RequestHandlerSelectors.basePackage("hongik.hmut.api.controller"))
-    //                .paths(PathSelectors.any())
-    //                .build()
-    //                .apiInfo(apiInfo());
-    //    }
-    //
-    //    private ApiInfo apiInfo() {
-    //        return new ApiInfoBuilder()
-    //                .title("H-Mut Swagger Document.")
-    //                .description("H-Mut 팀 API 문서입니다.")
-    //                .version("0.1")
-    //                .build();
-    //    }
+    private Info swaggerInfo() {
+        License license = new License();
+        license.setUrl("https://github.com/H-MUT/H-MUT-server");
+        license.setName("Hmut");
+
+        return new Info()
+                .version("v0.0.1")
+                .title("\"흐뭇 서버 API문서\"")
+                .description("흐뭇 서버의 API 문서 입니다.")
+                .license(license);
+    }
+
+    private Components authSetting() {
+        return new Components()
+                .addSecuritySchemes(
+                        "access-token",
+                        new SecurityScheme()
+                                .type(Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                                .in(In.HEADER)
+                                .name("Authorization"));
+    }
 }

@@ -3,8 +3,8 @@ package hongik.hmut.api.auth.service.helper;
 
 import hongik.hmut.core.dto.OIDCDto;
 import hongik.hmut.core.jwt.JwtOIDCProvider;
-import hongik.hmut.outer.api.oauth.dto.OIDCPublicKeyDto;
-import hongik.hmut.outer.api.oauth.dto.OIDCResponse;
+import hongik.hmut.infrastructure.outer.api.oauth.dto.OIDCPublicKeyDto;
+import hongik.hmut.infrastructure.outer.api.oauth.dto.OIDCResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

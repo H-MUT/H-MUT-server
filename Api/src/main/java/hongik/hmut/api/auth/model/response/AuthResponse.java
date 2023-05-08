@@ -1,7 +1,6 @@
 package hongik.hmut.api.auth.model.response;
 
 
-import hongik.hmut.outer.api.oauth.dto.KakaoTokenResponse;
 import lombok.Builder;
 import lombok.Getter;
 
