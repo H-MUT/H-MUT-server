@@ -22,8 +22,10 @@ public class OIDCHelper {
             String token, String iss, String aud, OIDCResponse oidcResponse) {
         String kid = getKidFromUnsignedIdToken(token, iss, aud);
 
+        System.out.println("kid = " + kid);
+
         OIDCPublicKeyDto oidcPublicKeyDto =
-                oidcResponse.getOidcPublicKeyDtos().stream()
+                oidcResponse.getKeys().stream()
                         .filter(o -> o.getKid().equals(kid))
                         .findFirst()
                         .orElseThrow();

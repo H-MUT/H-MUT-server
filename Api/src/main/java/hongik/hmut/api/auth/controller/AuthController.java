@@ -5,6 +5,7 @@ import hongik.hmut.api.auth.model.request.RegisterRequest;
 import hongik.hmut.api.auth.model.response.AuthResponse;
 import hongik.hmut.api.auth.model.response.OauthLoginLinkResponse;
 import hongik.hmut.api.auth.model.response.OauthTokenResponse;
+import hongik.hmut.api.auth.service.LoginUseCase;
 import hongik.hmut.api.auth.service.SignUpUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final SignUpUseCase signUpUseCase;
+    private final LoginUseCase loginUseCase;
 
     @Operation(summary = "kakao oauth 링크발급 (백엔드용)", description = "kakao 링크를 받아볼수 있습니다.")
     @Tag(name = "1-2. [카카오]")
@@ -82,5 +84,12 @@ public class AuthController {
     @GetMapping("/oauth/kakao/develop")
     public AuthResponse registerUserForTest(@RequestParam String code) {
         return signUpUseCase.registerUserByKakaoCode(code);
+    }
+
+    @Operation(summary = "id token 이용해서 로그인")
+    @Tag(name = "1-2. [카카오]")
+    @PostMapping("/oauth/kakao/login")
+    public AuthResponse loginUser(@RequestParam String idToken) {
+        return loginUseCase.execute(idToken);
     }
 }

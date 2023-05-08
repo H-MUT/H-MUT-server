@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OIDCResponse {
 
-    List<OIDCPublicKeyDto> oidcPublicKeyDtos;
+    List<OIDCPublicKeyDto> keys;
 }

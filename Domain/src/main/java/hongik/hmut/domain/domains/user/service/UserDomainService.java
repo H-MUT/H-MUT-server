@@ -6,6 +6,7 @@ import hongik.hmut.domain.domains.user.adaptor.UserAdaptor;
 import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.Profile;
 import hongik.hmut.domain.domains.user.domain.User;
+import hongik.hmut.domain.domains.user.exception.UserNotFoundException;
 import hongik.hmut.domain.domains.user.repository.UserRepository;
 import hongik.hmut.domain.domains.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,11 @@ public class UserDomainService {
                                                 .oauthInfo(oauthInfo)
                                                 .profile(profile)
                                                 .build()));
+    }
+
+    @Transactional(readOnly = true)
+    public User loginUser(OauthInfo oauthInfo) {
+        return userRepository.findByOauthInfo(oauthInfo)
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 }

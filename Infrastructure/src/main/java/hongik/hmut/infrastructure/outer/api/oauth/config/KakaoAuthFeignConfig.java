@@ -5,7 +5,9 @@ import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
+@Import(KakaoAuthErrorDecoder.class)
 public class KakaoAuthFeignConfig {
 
     @Bean

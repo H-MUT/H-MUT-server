@@ -48,9 +48,6 @@ public class KakaoOauthHelper {
 
     public KakaoTokenResponse getOauthToken(String code, String referer) {
 
-        System.out.println("oauthProperties = " + oauthProperties.getKakaoClientId());
-        System.out.println("oauthProperties = " + oauthProperties.getKakaoClientSecret());
-
         return kakaoOauthClient.kakaoAuth(
                 oauthProperties.getKakaoClientId(),
                 referer + "kakao/callback",
@@ -81,12 +78,14 @@ public class KakaoOauthHelper {
     }
 
     public OIDCDto getOIDCDecodePayload(String token) {
-        OIDCResponse oidcPublicKeysResponse = kakaoOauthClient.getKakaoOIDCOpenKeys();
+        OIDCResponse oidcResponse = kakaoOauthClient.getKakaoOIDCOpenKeys();
+        System.out.println("oidcPublicKeysResponse.getOidcPublicKeyDtos().toString() = "
+            + oidcResponse.getKeys().toString());
         return oidcHelper.getPayloadFromIdToken(
                 token,
                 oauthProperties.getKakaoBaseUrl(),
                 oauthProperties.getKakaoAppId(),
-                oidcPublicKeysResponse);
+            oidcResponse);
     }
 
     public OauthInfo getOauthInfoByIdToken(String idToken) {
