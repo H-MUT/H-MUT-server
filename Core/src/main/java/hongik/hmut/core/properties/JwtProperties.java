@@ -1,4 +1,4 @@
-package hongik.hmut.core.jwt;
+package hongik.hmut.core.properties;
 
 
 import lombok.AllArgsConstructor;

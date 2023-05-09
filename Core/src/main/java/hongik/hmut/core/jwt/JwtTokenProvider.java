@@ -6,6 +6,7 @@ import hongik.hmut.core.dto.AccessTokenDetail;
 import hongik.hmut.core.exception.ExpiredRefreshTokenException;
 import hongik.hmut.core.exception.ExpiredTokenException;
 import hongik.hmut.core.exception.InvalidTokenException;
+import hongik.hmut.core.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -45,7 +46,7 @@ public class JwtTokenProvider {
                 .setIssuedAt(issuedAt)
                 .setSubject(id.toString())
                 .claim(TOKEN_TYPE, ACCESS_TOKEN)
-                .claim("role", "Role")
+                .claim("role", role)
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(encodedKey)
                 .compact();
