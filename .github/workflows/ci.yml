@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branch:
-      - main
+      - 'main'
 
 jobs:
   build:
