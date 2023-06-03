@@ -1,4 +1,4 @@
-package hongik.hmut.domain.domains.user.domain;
+package hongik.hmut.domain.domains.group.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
@@ -6,16 +6,15 @@ import hongik.hmut.domain.domains.tag.domain.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,28 +22,42 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "tbl_group")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends AbstractTimeStamp {
+public class Group extends AbstractTimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded private Profile profile;
+    @NotNull private String groupName;
 
-    @Embedded private OauthInfo oauthInfo;
+    @NotNull
+    @Size(max = 30)
+    private String introduceMessage;
 
-    @Enumerated(EnumType.STRING)
-    private AccountRole accountRole;
+    @NotNull
+    @Size(max = 200)
+    private String description;
+
+    private String groupImageUrl;
+
+    @NotNull private Long adminUserId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public User(Profile profile, OauthInfo oauthInfo) {
-        this.profile = profile;
-        this.oauthInfo = oauthInfo;
-        this.accountRole = AccountRole.USER;
+    public Group(
+            String groupName,
+            String introduceMessage,
+            String description,
+            String groupImageUrl,
+            Long adminUserId) {
+        this.groupName = groupName;
+        this.introduceMessage = introduceMessage;
+        this.description = description;
+        this.groupImageUrl = groupImageUrl;
+        this.adminUserId = adminUserId;
     }
 }

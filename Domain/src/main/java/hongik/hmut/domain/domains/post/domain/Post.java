@@ -1,21 +1,18 @@
-package hongik.hmut.domain.domains.user.domain;
+package hongik.hmut.domain.domains.post.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
-import hongik.hmut.domain.domains.tag.domain.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,28 +20,33 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "tbl_post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends AbstractTimeStamp {
+public class Post extends AbstractTimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded private Profile profile;
+    @NotNull private Long groupId;
 
-    @Embedded private OauthInfo oauthInfo;
+    @NotNull private Long userId;
 
-    @Enumerated(EnumType.STRING)
-    private AccountRole accountRole;
+    @NotNull private String title;
+
+    @NotNull private String content;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Tag> tags = new ArrayList<>();
+    private final List<PostImage> images = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<PostLike> likes = new ArrayList<>();
 
     @Builder
-    public User(Profile profile, OauthInfo oauthInfo) {
-        this.profile = profile;
-        this.oauthInfo = oauthInfo;
-        this.accountRole = AccountRole.USER;
+    public Post(Long groupId, Long userId, String title, String content) {
+        this.groupId = groupId;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
     }
 }
