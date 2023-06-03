@@ -1,0 +1,6 @@
+rootProject.name = 'hmut'
+include 'Api'
+include 'Domain'
+include 'Core'
+include 'Infrastructure'
+
