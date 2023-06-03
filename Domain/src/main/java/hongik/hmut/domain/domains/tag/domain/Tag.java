@@ -1,4 +1,4 @@
-package hongik.hmut.domain.domains.group.domain;
+package hongik.hmut.domain.domains.tag.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;

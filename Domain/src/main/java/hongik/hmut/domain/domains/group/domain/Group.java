@@ -2,6 +2,7 @@ package hongik.hmut.domain.domains.group.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
+import hongik.hmut.domain.domains.tag.domain.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;

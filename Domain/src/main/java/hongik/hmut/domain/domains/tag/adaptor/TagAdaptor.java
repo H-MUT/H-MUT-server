@@ -1,8 +1,8 @@
-package hongik.hmut.domain.domains.group.adaptor;
+package hongik.hmut.domain.domains.tag.adaptor;
 
 
 import hongik.hmut.core.annotation.Adaptor;
-import hongik.hmut.domain.domains.group.repository.TagRepository;
+import hongik.hmut.domain.domains.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 
 @Adaptor
