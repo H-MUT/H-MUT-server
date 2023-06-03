@@ -1,3 +1,5 @@
+api:
+  prefix : ${API_PREFIX:/api}
 spring:
   profiles:
     include:
