@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Profile {
 
-    private String username;
+    private String userName;
 
     private String nickname;
 
@@ -21,9 +21,9 @@ public class Profile {
     private String thumbNail;
 
     @Builder
-    public Profile(String username, String nickname, String email, String thumbNail) {
+    public Profile(String userName, String nickname, String email, String thumbNail) {
         this.nickname = nickname;
-        this.username = username;
+        this.userName = userName;
         this.email = email;
         this.thumbNail = thumbNail;
     }
