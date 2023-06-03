@@ -79,13 +79,14 @@ public class KakaoOauthHelper {
 
     public OIDCDto getOIDCDecodePayload(String token) {
         OIDCResponse oidcResponse = kakaoOauthClient.getKakaoOIDCOpenKeys();
-        System.out.println("oidcPublicKeysResponse.getOidcPublicKeyDtos().toString() = "
-            + oidcResponse.getKeys().toString());
+        System.out.println(
+                "oidcPublicKeysResponse.getOidcPublicKeyDtos().toString() = "
+                        + oidcResponse.getKeys().toString());
         return oidcHelper.getPayloadFromIdToken(
                 token,
                 oauthProperties.getKakaoBaseUrl(),
                 oauthProperties.getKakaoAppId(),
-            oidcResponse);
+                oidcResponse);
     }
 
     public OauthInfo getOauthInfoByIdToken(String idToken) {

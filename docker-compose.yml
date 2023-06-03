@@ -1,19 +1,20 @@
 version: "3.7"
 services:
-  backend-dev:
-    image: sanbonai06/hmut-server-dev:dev
-    container_name: backend-dev
-    env_file:
-      - .env
+  redis:
+    image: "redis:alpine"
+    network_mode: "host"
+  backend:
+    image: sanbonai06/hmut-server:latest
+    container_name: backend
     network_mode: "host"
     environment:
       - TZ=Asia/Seoul
     expose:
-      - "8081"
+      - "8080"
 
   nginx:
     depends_on:
-      - backend-dev
+      - backend
     restart: always
     build:
       dockerfile: Dockerfile

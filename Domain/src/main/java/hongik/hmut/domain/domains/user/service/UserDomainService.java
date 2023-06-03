@@ -43,7 +43,8 @@ public class UserDomainService {
 
     @Transactional(readOnly = true)
     public User loginUser(OauthInfo oauthInfo) {
-        return userRepository.findByOauthInfo(oauthInfo)
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        return userRepository
+                .findByOauthInfo(oauthInfo)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 }

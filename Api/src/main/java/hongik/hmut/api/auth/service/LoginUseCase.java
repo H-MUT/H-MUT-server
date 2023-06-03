@@ -1,5 +1,6 @@
 package hongik.hmut.api.auth.service;
 
+
 import hongik.hmut.api.auth.model.response.AuthResponse;
 import hongik.hmut.api.auth.service.helper.KakaoOauthHelper;
 import hongik.hmut.api.auth.service.helper.TokenGenerateHelper;

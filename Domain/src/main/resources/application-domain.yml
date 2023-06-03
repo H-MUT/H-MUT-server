@@ -12,10 +12,10 @@ spring:
     password: ${MYSQL_PASSWORD}
     username: ${MYSQL_USERNAME}
   jpa:
-    show-sql: ${SHOW_SQL:true}
+    show-sql: false
     properties:
       hibernate:
-        format_sql: ${FORMAT_SQL:true}
+        format_sql: true
         default_batch_fetch_size: ${JPA_BATCH_FETCH_SIZE:100}
     hibernate:
       ddl-auto: update
