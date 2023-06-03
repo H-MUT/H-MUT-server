@@ -46,10 +46,10 @@ jobs:
 
 
       - name: Docker meta
-          id: docker_meta
-          uses: crazy-max/ghaction-docker-meta@v1
-          with:
-            images: sanbonai06/hmut-server
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: sanbonai06/hmut-server
 
 
       - name: Set up Docker Buildx
@@ -64,8 +64,7 @@ jobs:
       - name: Docker build & push
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./Api
           platforms: linux/amd64
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
