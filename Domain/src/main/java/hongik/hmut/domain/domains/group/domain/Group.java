@@ -60,4 +60,20 @@ public class Group extends AbstractTimeStamp {
         this.groupImageUrl = groupImageUrl;
         this.adminUserId = adminUserId;
     }
+
+    public void updateTags(List<Tag> tags) {
+        this.tags.addAll(tags);
+    }
+
+    public void update(
+            String groupName, String introduceMessage, String description, String groupImageUrl) {
+        this.groupName = groupName;
+        this.introduceMessage = introduceMessage;
+        this.description = description;
+        this.groupImageUrl = groupImageUrl;
+    }
+
+    public void clearTags() {
+        this.tags.clear();
+    }
 }
