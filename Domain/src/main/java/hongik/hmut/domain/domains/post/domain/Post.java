@@ -49,4 +49,15 @@ public class Post extends AbstractTimeStamp {
         this.title = title;
         this.content = content;
     }
+
+    public void savePostImages(List<PostImage> postImages) {
+        this.images.clear();
+        this.images.addAll(postImages);
+    }
+
+    public void update(String title, String content, List<PostImage> images) {
+        this.title = title;
+        this.content = content;
+        savePostImages(images);
+    }
 }
