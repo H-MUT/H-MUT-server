@@ -6,7 +6,6 @@ import hongik.hmut.domain.domains.post.domain.Post;
 import hongik.hmut.domain.domains.post.exception.PostNotFoundException;
 import hongik.hmut.domain.domains.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 

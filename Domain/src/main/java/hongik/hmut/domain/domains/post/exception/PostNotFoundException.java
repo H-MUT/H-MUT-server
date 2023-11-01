@@ -1,5 +1,6 @@
 package hongik.hmut.domain.domains.post.exception;
 
+
 import hongik.hmut.core.exception.BaseException;
 
 public class PostNotFoundException extends BaseException {

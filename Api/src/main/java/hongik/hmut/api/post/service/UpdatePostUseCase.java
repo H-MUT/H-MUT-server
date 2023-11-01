@@ -1,5 +1,6 @@
 package hongik.hmut.api.post.service;
 
+
 import hongik.hmut.api.config.security.SecurityUtils;
 import hongik.hmut.api.post.model.request.UpsertPostRequest;
 import hongik.hmut.core.annotation.UseCase;
@@ -27,7 +28,7 @@ public class UpdatePostUseCase {
 
     private List<PostImage> getPostImages(Post post, List<String> images) {
         return images.stream()
-            .map(image -> PostImage.builder().imageUrl(image).postId(post.getId()).build())
-            .toList();
+                .map(image -> PostImage.builder().imageUrl(image).postId(post.getId()).build())
+                .toList();
     }
 }

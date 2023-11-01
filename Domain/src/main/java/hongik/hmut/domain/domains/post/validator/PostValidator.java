@@ -1,5 +1,6 @@
 package hongik.hmut.domain.domains.post.validator;
 
+
 import hongik.hmut.core.annotation.Validator;
 import hongik.hmut.domain.domains.post.adaptor.PostAdaptor;
 import hongik.hmut.domain.domains.post.domain.Post;

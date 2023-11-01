@@ -1,5 +1,6 @@
 package hongik.hmut.api.post.service;
 
+
 import hongik.hmut.api.config.security.SecurityUtils;
 import hongik.hmut.core.annotation.UseCase;
 import hongik.hmut.domain.domains.group.adaptor.GroupAdaptor;
@@ -24,8 +25,9 @@ public class RetrievePostUseCase {
 
         Group group = groupAdaptor.query(groupId);
 
-        return postAdaptor.search(pageable, group.getId())
-            .map(post -> PostDetailInfoVo.of(post, currentUserId));
+        return postAdaptor
+                .search(pageable, group.getId())
+                .map(post -> PostDetailInfoVo.of(post, currentUserId));
     }
 
     public PostDetailInfoVo execute(Long postId) {

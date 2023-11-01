@@ -11,4 +11,3 @@ public class NotJoinedMemberException extends BaseException {
         super(GroupException.NOT_JOINED_MEMBER_ERROR);
     }
 }
-

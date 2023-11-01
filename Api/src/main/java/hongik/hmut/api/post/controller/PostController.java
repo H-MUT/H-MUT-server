@@ -1,5 +1,6 @@
 package hongik.hmut.api.post.controller;
 
+
 import hongik.hmut.api.post.model.request.UpsertPostRequest;
 import hongik.hmut.api.post.service.CreatePostUseCase;
 import hongik.hmut.api.post.service.DeletePostUseCase;
@@ -49,7 +50,8 @@ public class PostController {
 
     @Operation(summary = "게시글 조회")
     @GetMapping
-    public SliceResponse<PostDetailInfoVo> getFeeds(@PageableDefault Pageable pageable, @PathVariable Long groupId) {
+    public SliceResponse<PostDetailInfoVo> getFeeds(
+            @PageableDefault Pageable pageable, @PathVariable Long groupId) {
         return SliceResponse.from(retrievePostUseCase.executeOfSlice(pageable, groupId));
     }
 
@@ -61,8 +63,10 @@ public class PostController {
 
     @Operation(summary = "게시글 수정")
     @PatchMapping("/{postId}")
-    public void patchFeed(@PathVariable Long groupId, @PathVariable Long postId,
-        @RequestBody @Valid UpsertPostRequest body) {
+    public void patchFeed(
+            @PathVariable Long groupId,
+            @PathVariable Long postId,
+            @RequestBody @Valid UpsertPostRequest body) {
         updatePostUseCase.execute(groupId, postId, body);
     }
 }

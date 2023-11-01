@@ -1,5 +1,6 @@
 package hongik.hmut.api.post.service;
 
+
 import hongik.hmut.api.config.security.SecurityUtils;
 import hongik.hmut.api.post.model.request.UpsertPostRequest;
 import hongik.hmut.core.annotation.UseCase;
@@ -28,18 +29,27 @@ public class CreatePostUseCase {
 
         groupValidator.validateNotJoinGroup(group, currentUserId);
 
-        Post post = Post.builder().userId(currentUserId).groupId(groupId)
-            .title(body.getTitle())
-            .content(body.getContents())
-            .build();
+        Post post =
+                Post.builder()
+                        .userId(currentUserId)
+                        .groupId(groupId)
+                        .title(body.getTitle())
+                        .content(body.getContents())
+                        .build();
         Post savePost = postAdaptor.save(post);
 
         savePostImages(savePost, body.getImages());
     }
 
     private void savePostImages(Post post, List<String> images) {
-        post.savePostImages(images.stream()
-            .map(image -> PostImage.builder().postId(post.getId()).imageUrl(image).build())
-            .toList());
+        post.savePostImages(
+                images.stream()
+                        .map(
+                                image ->
+                                        PostImage.builder()
+                                                .postId(post.getId())
+                                                .imageUrl(image)
+                                                .build())
+                        .toList());
     }
 }
