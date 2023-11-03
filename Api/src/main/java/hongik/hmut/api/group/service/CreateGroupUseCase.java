@@ -7,8 +7,8 @@ import hongik.hmut.core.annotation.UseCase;
 import hongik.hmut.domain.domains.group.adaptor.GroupAdaptor;
 import hongik.hmut.domain.domains.group.domain.Group;
 import hongik.hmut.domain.domains.group.domain.GroupUser;
-import hongik.hmut.domain.domains.tag.domain.Tag;
-import java.util.List;
+import hongik.hmut.domain.domains.user.adaptor.UserAdaptor;
+import hongik.hmut.domain.domains.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,31 +18,31 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateGroupUseCase {
 
     private final GroupAdaptor groupAdaptor;
+    private final UserAdaptor userAdaptor;
 
     public void execute(UpsertGroupRequest body) {
         Long currentUserId = SecurityUtils.getCurrentUserId();
+        User user = userAdaptor.query(currentUserId);
         Group group =
                 Group.builder()
                         .groupName(body.getGroupName())
                         .introduceMessage(body.getIntroduceMessage())
                         .groupImageUrl(body.getImageUrl())
                         .description(body.getDescription())
-                        .adminUserId(currentUserId)
+                        .adminUser(user)
+                        .groupFrequency(body.getGroupFrequency())
+                        .tag(body.getTag())
                         .build();
         Group saveGroup = groupAdaptor.createGroup(group);
-
-        createTags(saveGroup, body.getTags());
 
         createGroupUser(saveGroup, currentUserId);
     }
 
-    private void createTags(Group group, List<String> tags) {
-        List<Tag> createTags = tags.stream().map(tag -> Tag.builder().value(tag).build()).toList();
-        group.updateTags(createTags);
+    public boolean checkGroupName(String groupName) {
+        return groupAdaptor.checkGroupName(groupName);
     }
 
     private void createGroupUser(Group group, Long currentUserId) {
-        groupAdaptor.joinGroup(
-                GroupUser.builder().groupId(group.getId()).userId(currentUserId).build());
+        groupAdaptor.joinGroup(GroupUser.builder().group(group).userId(currentUserId).build());
     }
 }

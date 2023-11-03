@@ -24,6 +24,6 @@ public class JoinGroupUseCase {
 
         groupValidator.validateAlreadyJoinGroup(group, currentUserId);
 
-        groupAdaptor.joinGroup(GroupUser.builder().groupId(groupId).userId(currentUserId).build());
+        groupAdaptor.joinGroup(GroupUser.builder().group(group).userId(currentUserId).build());
     }
 }

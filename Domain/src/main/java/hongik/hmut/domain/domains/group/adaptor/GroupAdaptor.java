@@ -2,6 +2,7 @@ package hongik.hmut.domain.domains.group.adaptor;
 
 
 import hongik.hmut.core.annotation.Adaptor;
+import hongik.hmut.domain.domains.group.condition.GroupSearchCondition;
 import hongik.hmut.domain.domains.group.domain.Group;
 import hongik.hmut.domain.domains.group.domain.GroupUser;
 import hongik.hmut.domain.domains.group.exception.GroupNotFoundException;
@@ -29,8 +30,8 @@ public class GroupAdaptor {
         return groupRepository.findAll();
     }
 
-    public Slice<Group> searchAllGroups(Pageable pageable, String tag) {
-        return groupRepository.search(pageable, tag);
+    public Slice<Group> searchAllGroups(Pageable pageable, GroupSearchCondition condition) {
+        return groupRepository.search(pageable, condition);
     }
 
     public Group createGroup(Group group) {
@@ -47,5 +48,9 @@ public class GroupAdaptor {
 
     public List<GroupUser> queryGroupUsers(Group group) {
         return groupUserRepository.findAllByGroupId(group.getId());
+    }
+
+    public boolean checkGroupName(String groupName) {
+        return groupRepository.existsAllByGroupName(groupName);
     }
 }

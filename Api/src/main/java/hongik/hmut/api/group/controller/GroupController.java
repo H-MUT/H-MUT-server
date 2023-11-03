@@ -10,12 +10,14 @@ import hongik.hmut.api.group.service.RetrieveGroupUseCase;
 import hongik.hmut.api.group.service.RetrieveGroupsUseCase;
 import hongik.hmut.api.group.service.UpdateGroupInfoUseCase;
 import hongik.hmut.common.SliceResponse;
+import hongik.hmut.domain.domains.group.condition.GroupSearchCondition;
 import hongik.hmut.domain.domains.group.vo.GroupInfoVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,8 +47,8 @@ public class GroupController {
     @Operation(summary = "그룹 탐색")
     @GetMapping
     public SliceResponse<GroupInfoVo> getGroups(
-            @PageableDefault Pageable pageable, @RequestParam(required = false) String tag) {
-        return SliceResponse.from(retrieveGroupsUseCase.execute(pageable, tag));
+            @PageableDefault Pageable pageable, @ParameterObject GroupSearchCondition condition) {
+        return SliceResponse.from(retrieveGroupsUseCase.execute(pageable, condition));
     }
 
     @Operation(summary = "그룹 상세 조회")
@@ -77,5 +79,11 @@ public class GroupController {
     @PostMapping("/{groupId}/users")
     public void postGroupUser(@PathVariable Long groupId) {
         joinGroupUseCase.execute(groupId);
+    }
+
+    @Operation(summary = "그룹 이름 중복 검사")
+    @GetMapping("/check-name")
+    public boolean checkGroupName(@RequestParam String groupName) {
+        return createGroupUseCase.checkGroupName(groupName);
     }
 }
