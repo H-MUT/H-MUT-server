@@ -21,6 +21,6 @@ public enum PostException implements BaseErrorCode {
 
     @Override
     public ErrorDetail getErrorDetail() {
-        return null;
+        return ErrorDetail.of(statusCode, errorCode, reason);
     }
 }

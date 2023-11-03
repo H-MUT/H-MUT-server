@@ -52,7 +52,7 @@ public class Group extends AbstractTimeStamp {
     private GroupFrequency groupFrequency;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "groupId")
+    @JoinColumn(name = "adminUserId")
     private User adminUser;
 
     @NotNull
