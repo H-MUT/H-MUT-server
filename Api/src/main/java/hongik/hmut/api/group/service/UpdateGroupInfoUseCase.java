@@ -33,7 +33,7 @@ public class UpdateGroupInfoUseCase {
                 body.getIntroduceMessage(),
                 body.getDescription(),
                 body.getImageUrl(),
-                body.getTag(),
+                body.getTagValue(),
                 body.getGroupFrequency(),
                 user);
     }

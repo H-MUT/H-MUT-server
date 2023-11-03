@@ -70,9 +70,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private Authentication getAuthentication(String token) {
         AccessTokenDetail accessTokenDetail = jwtTokenProvider.parseAccessToken(token);
 
-        UserDetails userDetails =
-                CustomUserDetails.of(
-                        accessTokenDetail.getUserId().toString());
+        UserDetails userDetails = CustomUserDetails.of(accessTokenDetail.getUserId().toString());
         return new UsernamePasswordAuthenticationToken(
                 userDetails, "user", userDetails.getAuthorities());
     }

@@ -2,7 +2,6 @@ package hongik.hmut.domain.domains.group.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
-import hongik.hmut.domain.domains.tag.domain.Tag;
 import hongik.hmut.domain.domains.user.domain.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +57,7 @@ public class Group extends AbstractTimeStamp {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Tag tag;
+    private Group.TagValue tagValue;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<GroupUser> groupUsers = new ArrayList<>();
@@ -77,7 +76,7 @@ public class Group extends AbstractTimeStamp {
 
     @Getter
     @AllArgsConstructor
-    public enum Tag {
+    public enum TagValue {
         HEALTH("헬스"),
         PILATES("필라테스"),
         CLIMBING("클라이밍"),
@@ -95,7 +94,7 @@ public class Group extends AbstractTimeStamp {
             String introduceMessage,
             String description,
             String groupImageUrl,
-            Tag tag,
+            TagValue tagValue,
             GroupFrequency groupFrequency,
             User adminUser) {
         this.groupName = groupName;
@@ -103,7 +102,7 @@ public class Group extends AbstractTimeStamp {
         this.description = description;
         this.groupImageUrl = groupImageUrl;
         this.adminUser = adminUser;
-        this.tag = tag;
+        this.tagValue = tagValue;
         this.groupFrequency = groupFrequency;
     }
 
@@ -112,7 +111,7 @@ public class Group extends AbstractTimeStamp {
             String introduceMessage,
             String description,
             String groupImageUrl,
-            Tag tag,
+            TagValue tagValue,
             GroupFrequency groupFrequency,
             User adminUser) {
         this.groupName = groupName;
@@ -120,7 +119,7 @@ public class Group extends AbstractTimeStamp {
         this.description = description;
         this.groupImageUrl = groupImageUrl;
         this.adminUser = adminUser;
-        this.tag = tag;
+        this.tagValue = tagValue;
         this.groupFrequency = groupFrequency;
     }
 }

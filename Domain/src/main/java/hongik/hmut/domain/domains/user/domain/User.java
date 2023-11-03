@@ -2,19 +2,13 @@ package hongik.hmut.domain.domains.user.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
-import hongik.hmut.domain.domains.tag.domain.Tag;
-import java.util.ArrayList;
+import hongik.hmut.domain.domains.group.domain.Group;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,12 +27,11 @@ public class User extends AbstractTimeStamp {
 
     @Embedded private Profile profile;
 
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Tag> tags = new ArrayList<>();
+    private String tagValues;
 
     @Builder
-    public User(Profile profile) {
+    public User(Profile profile, List<Group.TagValue> tagValues) {
         this.profile = profile;
+        this.tagValues = tagValues.toString();
     }
 }

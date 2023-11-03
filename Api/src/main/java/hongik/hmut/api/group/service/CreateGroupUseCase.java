@@ -31,7 +31,7 @@ public class CreateGroupUseCase {
                         .description(body.getDescription())
                         .adminUser(user)
                         .groupFrequency(body.getGroupFrequency())
-                        .tag(body.getTag())
+                        .tagValue(body.getTagValue())
                         .build();
         Group saveGroup = groupAdaptor.createGroup(group);
 

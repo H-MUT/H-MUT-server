@@ -38,8 +38,7 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
     }
 
-    private String buildAccessToken(
-            Long id, Date issuedAt, Date accessTokenExpiresIn) {
+    private String buildAccessToken(Long id, Date issuedAt, Date accessTokenExpiresIn) {
         final Key encodedKey = getSecretKey();
         return Jwts.builder()
                 .setIssuer(jwtProperties.getIssuer())
@@ -89,9 +88,7 @@ public class JwtTokenProvider {
     public AccessTokenDetail parseAccessToken(String token) {
         if (isAccessToken(token)) {
             Claims claims = getJws(token).getBody();
-            return AccessTokenDetail.builder()
-                    .userId(Long.parseLong(claims.getSubject()))
-                    .build();
+            return AccessTokenDetail.builder().userId(Long.parseLong(claims.getSubject())).build();
         }
         throw InvalidTokenException.EXCEPTION;
     }

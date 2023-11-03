@@ -9,7 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import hongik.hmut.domain.common.SliceUtil;
 import hongik.hmut.domain.domains.group.condition.GroupSearchCondition;
 import hongik.hmut.domain.domains.group.domain.Group;
-import hongik.hmut.domain.domains.group.domain.Group.Tag;
+import hongik.hmut.domain.domains.group.domain.Group.TagValue;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +29,7 @@ public class GroupCustomRepositoryImpl implements GroupCustomRepository {
                         .leftJoin(group.adminUser, user)
                         .fetchJoin()
                         .where(
-                                tagEq(condition.getTags()),
+                                tagEq(condition.getTagValues()),
                                 groupNameContains(condition.getGroupName()))
                         .orderBy(group.id.desc())
                         .offset(pageable.getOffset())
@@ -39,8 +39,8 @@ public class GroupCustomRepositoryImpl implements GroupCustomRepository {
         return SliceUtil.valueOf(contents, pageable);
     }
 
-    private BooleanExpression tagEq(List<Tag> tags) {
-        return (tags != null && !tags.isEmpty()) ? group.tag.in(tags) : null;
+    private BooleanExpression tagEq(List<TagValue> tagValues) {
+        return (tagValues != null && !tagValues.isEmpty()) ? group.tagValue.in(tagValues) : null;
     }
 
     private BooleanExpression groupNameContains(String groupName) {

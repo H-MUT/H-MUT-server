@@ -2,14 +2,10 @@ package hongik.hmut.domain.domains.tag.domain;
 
 
 import hongik.hmut.domain.domains.AbstractTimeStamp;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import hongik.hmut.domain.domains.group.domain.Group.TagValue;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,10 +19,7 @@ public class Tag extends AbstractTimeStamp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull private String value;
-
-    @Builder
-    public Tag(String value) {
-        this.value = value;
-    }
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private TagValue tagValue;
 }

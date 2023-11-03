@@ -1,8 +1,9 @@
 package hongik.hmut.api.group.model.request;
 
 
+import hongik.hmut.domain.domains.group.domain.Group;
 import hongik.hmut.domain.domains.group.domain.Group.GroupFrequency;
-import hongik.hmut.domain.domains.group.domain.Group.Tag;
+import hongik.hmut.domain.domains.group.domain.Group.TagValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -35,7 +36,7 @@ public class UpsertGroupRequest {
     @NotNull(message = "빈도를 입력해주세요.")
     private GroupFrequency groupFrequency;
 
-    @Schema(description = "태그", example = "SWIMMING", implementation = Tag.class)
+    @Schema(description = "태그", example = "SWIMMING", implementation = TagValue.class)
     @NotNull(message = "태그를 입력해주세요.")
-    private Tag tag;
+    private Group.TagValue tagValue;
 }

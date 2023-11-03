@@ -2,7 +2,6 @@ package hongik.hmut.domain.domains.user.adaptor;
 
 
 import hongik.hmut.core.annotation.Adaptor;
-import hongik.hmut.domain.domains.user.domain.OauthInfo;
 import hongik.hmut.domain.domains.user.domain.User;
 import hongik.hmut.domain.domains.user.exception.UserNotFoundException;
 import hongik.hmut.domain.domains.user.repository.UserRepository;

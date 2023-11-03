@@ -16,9 +16,6 @@ public class UserInfoResponse {
     private OauthProvider provider;
 
     public static UserInfoResponse from(User user) {
-        return UserInfoResponse.builder()
-                .userId(user.getId())
-                .profile(user.getProfile())
-                .build();
+        return UserInfoResponse.builder().userId(user.getId()).profile(user.getProfile()).build();
     }
 }

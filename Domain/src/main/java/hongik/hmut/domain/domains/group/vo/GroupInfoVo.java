@@ -3,7 +3,6 @@ package hongik.hmut.domain.domains.group.vo;
 
 import hongik.hmut.domain.domains.group.domain.Group;
 import hongik.hmut.domain.domains.group.domain.Group.GroupFrequency;
-import hongik.hmut.domain.domains.group.domain.Group.Tag;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,7 +16,7 @@ public class GroupInfoVo {
 
     private final String groupName;
 
-    private final Tag tag;
+    private final Group.TagValue tagValue;
 
     private final GroupFrequency groupFrequency;
 
@@ -34,7 +33,7 @@ public class GroupInfoVo {
                 .imageUrl(group.getGroupImageUrl())
                 .adminName(group.getAdminUser().getProfile().getUserName())
                 .groupName(group.getGroupName())
-                .tag(group.getTag())
+                .tagValue(group.getTagValue())
                 .groupFrequency(group.getGroupFrequency())
                 .introduceMessage(group.getIntroduceMessage())
                 .description(group.getDescription())
