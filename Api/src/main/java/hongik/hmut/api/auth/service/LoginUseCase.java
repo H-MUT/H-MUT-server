@@ -17,9 +17,9 @@ public class LoginUseCase {
     private final KakaoOauthHelper kakaoOauthHelper;
     private final TokenGenerateHelper tokenGenerateHelper;
 
-    public AuthResponse execute(String idToken) {
-        User user = userDomainService.loginUser(kakaoOauthHelper.getOauthInfoByIdToken(idToken));
-        System.out.println("user = " + user.getId());
-        return tokenGenerateHelper.execute(user);
-    }
+//    public AuthResponse execute(String idToken) {
+//        User user = userDomainService.loginUser(kakaoOauthHelper.getOauthInfoByIdToken(idToken));
+//        System.out.println("user = " + user.getId());
+//        return tokenGenerateHelper.execute(user);
+//    }
 }

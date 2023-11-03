@@ -13,8 +13,8 @@ public class UserValidator {
 
     private final UserAdaptor userAdaptor;
 
-    public void isNewUser(OauthInfo oauthInfo) {
-        if (userAdaptor.existByOauthInfo(oauthInfo)) {
+    public void isNewUser(String email) {
+        if (userAdaptor.existByOauthInfo(email)) {
             throw AlreadyExistUserException.EXCEPTION;
         }
     }

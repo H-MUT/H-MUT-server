@@ -21,30 +21,30 @@ public class UserDomainService {
     private final UserRepository userRepository;
 
     @Transactional
-    public User registerUser(Profile profile, OauthInfo oauthInfo) {
-        userValidator.isNewUser(oauthInfo);
+    public User registerUser(Profile profile) {
+        userValidator.isNewUser(profile.getEmail());
 
-        User user = User.builder().profile(profile).oauthInfo(oauthInfo).build();
+        User user = User.builder().profile(profile).build();
         return userAdaptor.save(user);
     }
 
-    @Transactional
-    public User registerUserForTest(Profile profile, OauthInfo oauthInfo) {
-        return userRepository
-                .findByOauthInfo(oauthInfo)
-                .orElseGet(
-                        () ->
-                                userAdaptor.save(
-                                        User.builder()
-                                                .oauthInfo(oauthInfo)
-                                                .profile(profile)
-                                                .build()));
-    }
-
-    @Transactional(readOnly = true)
-    public User loginUser(OauthInfo oauthInfo) {
-        return userRepository
-                .findByOauthInfo(oauthInfo)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-    }
+//    @Transactional
+//    public User registerUserForTest(Profile profile, OauthInfo oauthInfo) {
+//        return userRepository
+//                .findByOauthInfo(oauthInfo)
+//                .orElseGet(
+//                        () ->
+//                                userAdaptor.save(
+//                                        User.builder()
+//                                                .oauthInfo(oauthInfo)
+//                                                .profile(profile)
+//                                                .build()));
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public User loginUser(OauthInfo oauthInfo) {
+//        return userRepository
+//                .findByOauthInfo(oauthInfo)
+//                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+//    }
 }

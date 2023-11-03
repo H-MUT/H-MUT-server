@@ -21,7 +21,7 @@ public class TokenGenerateHelper {
     @Transactional
     public AuthResponse execute(User user) {
         String newAccessToken =
-                jwtTokenProvider.generateAccessToken(user.getId(), user.getAccountRole().getRole());
+                jwtTokenProvider.generateAccessToken(user.getId());
         String newRefreshToken = jwtTokenProvider.generateRefreshToken(user.getId());
 
         RefreshTokenEntity newRefreshTokenEntity =

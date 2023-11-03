@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByOauthInfo(OauthInfo oauthInfo);
+    Optional<User> findByProfile_Email(String email);
 }

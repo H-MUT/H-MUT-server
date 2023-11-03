@@ -18,7 +18,6 @@ public class UserInfoResponse {
     public static UserInfoResponse from(User user) {
         return UserInfoResponse.builder()
                 .userId(user.getId())
-                .provider(user.getOauthInfo().getProvider())
                 .profile(user.getProfile())
                 .build();
     }

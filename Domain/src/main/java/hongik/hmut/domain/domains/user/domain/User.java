@@ -33,18 +33,12 @@ public class User extends AbstractTimeStamp {
 
     @Embedded private Profile profile;
 
-    @Embedded private OauthInfo oauthInfo;
-
-    @Enumerated(EnumType.STRING)
-    private AccountRole accountRole;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public User(Profile profile, OauthInfo oauthInfo) {
+    public User(Profile profile) {
         this.profile = profile;
-        this.oauthInfo = oauthInfo;
-        this.accountRole = AccountRole.USER;
     }
 }

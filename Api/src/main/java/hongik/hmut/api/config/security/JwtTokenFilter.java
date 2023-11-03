@@ -72,7 +72,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         UserDetails userDetails =
                 CustomUserDetails.of(
-                        accessTokenDetail.getUserId().toString(), accessTokenDetail.getRole());
+                        accessTokenDetail.getUserId().toString());
         return new UsernamePasswordAuthenticationToken(
                 userDetails, "user", userDetails.getAuthorities());
     }

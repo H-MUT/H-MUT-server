@@ -3,11 +3,11 @@ package hongik.hmut.api.config;
 
 import hongik.hmut.core.dto.ErrorDetail;
 import hongik.hmut.core.dto.ErrorResponse;
-import hongik.hmut.core.exception.BaseErrorCode;
-import hongik.hmut.core.exception.BaseException;
-import hongik.hmut.core.exception.GlobalException;
+import hongik.hmut.core.exception.*;
+
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -57,6 +57,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         //        slackInternalErrorSender.execute(cachingRequest, e, userId);
         return ResponseEntity.status(HttpStatus.valueOf(internalServerError.getStatusCode()))
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(OuterServerForbiddenException.class)
+    protected ResponseEntity<ErrorResponse> outerServerExceptionHandle(OuterServerException e) {
+        ErrorDetail errorDetail = ErrorDetail.of(e.getStatusCode(), e.getErrorCode(), e.getReason());
+        ErrorResponse errorResponse = new ErrorResponse(errorDetail);
+        return ResponseEntity.status(HttpStatus.valueOf(errorDetail.getStatusCode()))
                 .body(errorResponse);
     }
 

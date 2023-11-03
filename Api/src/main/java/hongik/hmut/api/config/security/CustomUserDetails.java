@@ -14,11 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUserDetails implements UserDetails {
 
     private final String userId;
-    private final String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_"));
     }
 
     @Override
@@ -51,7 +50,7 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public static CustomUserDetails of(String userId, String role) {
-        return CustomUserDetails.builder().userId(userId).role(role).build();
+    public static CustomUserDetails of(String userId) {
+        return CustomUserDetails.builder().userId(userId).build();
     }
 }

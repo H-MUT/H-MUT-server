@@ -9,5 +9,4 @@ import lombok.Getter;
 public class AccessTokenDetail {
 
     private final Long userId;
-    private final String role;
 }

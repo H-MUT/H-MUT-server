@@ -14,17 +14,14 @@ public class Profile {
 
     private String userName;
 
-    private String nickname;
-
     private String email;
 
-    private String thumbNail;
+    private String profileImage;
 
     @Builder
-    public Profile(String userName, String nickname, String email, String thumbNail) {
-        this.nickname = nickname;
+    public Profile(String userName, String email, String profileImage) {
         this.userName = userName;
         this.email = email;
-        this.thumbNail = thumbNail;
+        this.profileImage = profileImage;
     }
 }

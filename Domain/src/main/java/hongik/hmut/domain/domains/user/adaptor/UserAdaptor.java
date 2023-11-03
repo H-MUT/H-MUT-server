@@ -14,8 +14,8 @@ public class UserAdaptor {
 
     private final UserRepository userRepository;
 
-    public Boolean existByOauthInfo(OauthInfo oauthInfo) {
-        return userRepository.findByOauthInfo(oauthInfo).isPresent();
+    public Boolean existByOauthInfo(String email) {
+        return userRepository.findByProfile_Email(email).isPresent();
     }
 
     public User save(User user) {

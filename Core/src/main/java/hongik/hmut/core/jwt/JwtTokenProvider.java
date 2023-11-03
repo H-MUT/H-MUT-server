@@ -39,14 +39,13 @@ public class JwtTokenProvider {
     }
 
     private String buildAccessToken(
-            Long id, Date issuedAt, Date accessTokenExpiresIn, String role) {
+            Long id, Date issuedAt, Date accessTokenExpiresIn) {
         final Key encodedKey = getSecretKey();
         return Jwts.builder()
                 .setIssuer(jwtProperties.getIssuer())
                 .setIssuedAt(issuedAt)
                 .setSubject(id.toString())
                 .claim(TOKEN_TYPE, ACCESS_TOKEN)
-                .claim("role", role)
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(encodedKey)
                 .compact();
@@ -64,12 +63,12 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String generateAccessToken(Long id, String role) {
+    public String generateAccessToken(Long id) {
         final Date issuedAt = new Date();
         final Date accessTokenExpiresIn =
                 new Date(issuedAt.getTime() + jwtProperties.getAccessExp() * 1000);
 
-        return buildAccessToken(id, issuedAt, accessTokenExpiresIn, role);
+        return buildAccessToken(id, issuedAt, accessTokenExpiresIn);
     }
 
     public String generateRefreshToken(Long id) {
@@ -92,7 +91,6 @@ public class JwtTokenProvider {
             Claims claims = getJws(token).getBody();
             return AccessTokenDetail.builder()
                     .userId(Long.parseLong(claims.getSubject()))
-                    .role((String) claims.get("role"))
                     .build();
         }
         throw InvalidTokenException.EXCEPTION;
