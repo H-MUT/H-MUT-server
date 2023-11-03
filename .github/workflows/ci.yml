@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branch:
-      - 'main'
+      - 'dev'
 
 jobs:
   build:
@@ -32,18 +32,18 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - uses: actions/checkout@v2
-      - run: touch ./Domain/src/main/resources/application-domain.yml
-      - run: echo "${{ secrets.APPLICATION_DOMAIN }}" > ./Domain/src/main/resources/application-domain.yml
-
-
-      - uses: actions/checkout@v2
-      - run: touch ./Infrastructure/src/main/resources/application-infrastructure.yml
-      - run: echo "${{ secrets.APPLICATION_INFRASTRUCTURE }}" > ./Infrastructure/src/main/resources/application-infrastructure.yml
-
-      - uses: actions/checkout@v2
-      - run: touch ./Core/src/main/resources/application-core.yml
-      - run: echo "${{ secrets.APPLICATION_CORE }}" > ./Core/src/main/resources/application-core.yml
+#      - uses: actions/checkout@v2
+#      - run: touch ./Domain/src/main/resources/application-domain.yml
+#      - run: echo "${{ secrets.APPLICATION_DOMAIN }}" > ./Domain/src/main/resources/application-domain.yml
+#
+#
+#      - uses: actions/checkout@v2
+#      - run: touch ./Infrastructure/src/main/resources/application-infrastructure.yml
+#      - run: echo "${{ secrets.APPLICATION_INFRASTRUCTURE }}" > ./Infrastructure/src/main/resources/application-infrastructure.yml
+#
+#      - uses: actions/checkout@v2
+#      - run: touch ./Core/src/main/resources/application-core.yml
+#      - run: echo "${{ secrets.APPLICATION_CORE }}" > ./Core/src/main/resources/application-core.yml
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -55,23 +55,6 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/hmut-server:latest
 
 
-      - name: create remote directory
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ubuntu
-          key: ${{ secrets.KEY }}
-          script: mkdir -p ~/srv/ubuntu/hmut
-
-      - name: copy source via ssh key
-        uses: burnett01/rsync-deployments@4.1
-        with:
-          switches: -avzr --delete
-          remote_path: ~/srv/ubuntu/
-          remote_host: ${{ secrets.HOST }}
-          remote_user: ubuntu
-          remote_key: ${{ secrets.KEY }}
-
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -80,6 +63,6 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             sh ~/srv/ubuntu/config/scripts/docker-init.sh
-            sudo docker-compose -f ~/srv/ubuntu/docker-compose.yml pull
-            sudo docker-compose -f ~/srv/ubuntu/docker-compose.yml up --build -d
+            sudo docker-compose -f ~/srv/docker-compose.yml pull
+            sudo docker-compose -f ~/srv/docker-compose.yml up --build -d
             sudo docker system prune --all -f

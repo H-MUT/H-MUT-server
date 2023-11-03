@@ -18,7 +18,7 @@ public class GroupValidator {
     private final GroupAdaptor groupAdaptor;
 
     public void validateGroupAdmin(Group group, Long adminUserId) {
-        if (!group.getAdminUserId().equals(adminUserId)) {
+        if (!group.getAdminUser().getId().equals(adminUserId)) {
             throw GroupAdminNotAuthException.EXCEPTION;
         }
     }
